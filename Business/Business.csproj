@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>Holism.Entity.Business</AssemblyName>
+    <RootNamespace>Holism.Entity.Business</RootNamespace>
+  </PropertyGroup>
+
+  <Import Project="$(HolismProjectsRoot)\Api\ProjectBusiness.targets" />
+  <Import Project="$(HolismProjectsRoot)\Framework\ProjectReusable.targets" />
+  <Import Project="$(HolismProjectsRoot)\Cloud\ProjectAzure.targets" />
+  <Import Project="$(HolismProjectsRoot)\Framework\ProjectMedia.targets" />
+
+</Project>

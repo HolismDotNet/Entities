@@ -1,0 +1,16 @@
+<Project>
+
+  <ItemGroup>
+    <Reference Include="Holism.Entity.DataAccess">
+      <HintPath>$(HolismProjectsRoot)\Entity\Packages\Holism.Entity.DataAccess.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Holism.Entity.Business">
+      <HintPath>$(HolismProjectsRoot)\Entity\Packages\Holism.Entity.Business.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  
+  <Import Project="$(HolismProjectsRoot)\Cloud\ProjectAzure.targets" />
+  
+</Project>
