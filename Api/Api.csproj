@@ -1,19 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup Label="Globals">
-    <SccProjectName>SAK</SccProjectName>
-    <SccProvider>SAK</SccProvider>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccLocalPath>SAK</SccLocalPath>
-  </PropertyGroup>
+  <Import Project="/HolismDotNet/Framework/DotNet.targets" />
 
   <PropertyGroup>
-    <AssemblyName>Holism.Entity.AdminApi</AssemblyName>
-    <RootNamespace>Holism.Entity.AdminApi</RootNamespace>
+    <AssemblyName>Holism.Entity.Api</AssemblyName>
+    <RootNamespace>Holism.Entity.Api</RootNamespace>
   </PropertyGroup>
 
-  <Import Project="$(HolismProjectsRoot)\Api\ProjectAdminApi.targets" />
-  <Import Project="$(HolismProjectsRoot)\Identities\ProjectAdminApi.targets" />
-  <Import Project="$(HolismProjectsRoot)\Framework\ProjectReusable.targets" />
+  <Import Project="/HolismDotNet/Framework/Api.targets" />
+  <Import Project="/HolismDotNet/Framework/Reusable.targets" />
 
 </Project>
