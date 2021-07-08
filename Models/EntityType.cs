@@ -1,8 +1,8 @@
 using System;
 
-namespace Holism.Entity.DataAccess.Models
+namespace Holism.Entity.Models
 {
-    public class EntityType : Holism.EntityFramework.IEntity
+    public class EntityType : Holism.Models.IEntity
     {
         public EntityType()
         {
