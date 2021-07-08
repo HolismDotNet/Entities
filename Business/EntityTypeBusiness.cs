@@ -1,9 +1,8 @@
 ﻿using Holism.Business;
-using Holism.EntityFramework;
+using Holism.DataAccess;
 using Holism.Framework;
-using Holism.Framework.Extensions;
 using Holism.Entity.DataAccess;
-using Holism.Entity.DataAccess.Models;
+using Holism.Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,85 +14,57 @@ namespace Holism.Entity.Business
     {
         private const string EntityTypeNamePropertyName = "EntityTypeName";
 
-        private const string EntityTypeGuidPropertyName = "EntityTypeName";
+        private const string EntityTypeGuidPropertyName = "EntityTypeGuid";
 
-        protected override Repository<EntityType> ModelRepository => RepositoryFactory.EntityTypeFrom(databaseName);
+        protected override Repository<EntityType> WriteRepository => Repository.EntityType;
 
-        protected override ViewRepository<EntityType> ViewRepository => RepositoryFactory.EntityTypeFrom(databaseName);
+        protected override ReadRepository<EntityType> ReadRepository => Repository.EntityType;
 
-        string databaseName;
+        private static Dictionary<string, Guid> entityTypeNames;
 
-        public EntityTypeBusiness(string databaseName = null)
+        private static Dictionary<Guid, string> entityTypeGuids;
+
+        private static Dictionary<string, Guid> EntityTypeNames
         {
-            this.databaseName = databaseName;
+            get
+            {
+                if (entityTypeNames == null)
+                {
+                    entityTypeNames = new EntityTypeBusiness().GetAll().ToDictionary(i => i.Name.ToLower(), i => i.Guid);
+                }
+                return entityTypeNames;
+            }
         }
 
-        private static Dictionary<string, Dictionary<string, Guid>> databaseEntityTypeNames;
-
-        private static Dictionary<string, Dictionary<Guid, string>> databaseEntityTypeGuids;
-
-        private static Dictionary<string, Guid> EntityTypeNames(string databaseName)
+        private static Dictionary<Guid, string> EntityTypeGuids
         {
-            if (databaseName.IsNothing())
+            get
             {
-                // throw new FrameworkException($"Database is not specified. To work with entitites, you should specify the requested database.");
-                databaseName = Framework.Config.GetSetting("EntityDatabaseName");
+                if (entityTypeGuids == null)
+                {
+                    entityTypeGuids = new EntityTypeBusiness().GetAll().ToDictionary(i => i.Guid, i => i.Name.ToLower());
+                }
+                return entityTypeGuids;
             }
-            if (databaseEntityTypeNames.IsNull())
-            {
-                databaseEntityTypeNames = new Dictionary<string, Dictionary<string, Guid>>();
-            }
-            if (!databaseEntityTypeNames.ContainsKey(databaseName))
-            {
-                databaseEntityTypeNames.Add(databaseName, new EntityTypeBusiness(databaseName).GetAll().ToDictionary(i => i.Name.ToLower(), i => i.Guid));
-            }
-            return databaseEntityTypeNames[databaseName];
-        }
-
-        private static Dictionary<Guid, string> EntityTypeGuids(string databaseName)
-        {
-            if (databaseEntityTypeGuids.IsNull())
-            {
-                databaseEntityTypeGuids = new Dictionary<string, Dictionary<Guid, string>>();
-            }
-            if (!databaseEntityTypeGuids.ContainsKey(databaseName))
-            {
-                databaseEntityTypeGuids.Add(databaseName, new EntityTypeBusiness(databaseName).GetAll().ToDictionary(i => i.Guid, i => i.Name.ToLower()));
-            }
-            return databaseEntityTypeGuids[databaseName];
         }
 
         public Guid GetGuid(string name)
         {
             name = name.ToLower();
-            if (EntityTypeNames(databaseName).ContainsKey(name))
+            if (EntityTypeNames.ContainsKey(name))
             {
-                return EntityTypeNames(databaseName)[name];
+                return EntityTypeNames[name];
             }
-            try
-            {
-                var model = new EntityType();
-                model.Name = name;
-                model.Guid = Guid.NewGuid();
-                ModelRepository.Create(model);
-                databaseEntityTypeNames = null;
-                return EntityTypeNames(databaseName)[name];
-            }
-            catch (Exception ex)
-            {
-                Logger.LogWarning("A temporary hack for social module.");
-                databaseEntityTypeNames = null;
-                return GetGuid(name);
-            }
+            throw new ServerException($"Entity {name} is not specified in the database.");
         }
 
         public string GetName(Guid guid)
         {
-            if (EntityTypeGuids(databaseName).ContainsKey(guid))
+            if (EntityTypeGuids.ContainsKey(guid))
             {
-                return EntityTypeGuids(databaseName)[guid];
+                return EntityTypeGuids[guid];
             }
-            throw new BusinessException($"No entity is defined to have the guid {guid}");
+            throw new ServerException($"No entity is defined to have the guid {guid}");
         }
 
         public void InflateWithEntityType(object[] entities)
@@ -120,7 +91,7 @@ namespace Holism.Entity.Business
 
         public void InflateWithEntityType(object entity)
         {
-            if (entity.IsNull())
+            if (entity == null)
             {
                 return;
             }
