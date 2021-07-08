@@ -1,17 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup Label="Globals">
-    <SccProjectName>SAK</SccProjectName>
-    <SccProvider>SAK</SccProvider>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccLocalPath>SAK</SccLocalPath>
-  </PropertyGroup>
+  <Import Project="/HolismDotNet/Framework/DotNet.targets" />
 
   <PropertyGroup>
     <AssemblyName>Holism.Entity.Tests</AssemblyName>
     <RootNamespace>Holism.Entity.Tests</RootNamespace>
   </PropertyGroup>
 
-  <Import Project="$(HolismProjectsRoot)\Quality\ProjectDatabaseTest.targets" />
+  <Import Project="/HolismDotNet/Quality/DatabaseTest.targets" />
 
 </Project>
