@@ -1,18 +1,16 @@
+using Holism.Entity.Models;
+using Holism.DataAccess;
+
 namespace Holism.Entity.DataAccess
 {
-    public class RepositoryFactory
+    public class Repository
     {
-        public static Repositories.EntityTypeRepository EntityType
+        public static Repository<EntityType> EntityType
         {
             get
             {
-                return new Repositories.EntityTypeRepository();
+                return new Holism.DataAccess.Repository<EntityType>(new EntityContext());
             }
-        }
-
-        public static Repositories.EntityTypeRepository EntityTypeFrom(string databaseName = null)
-        {
-            return new Repositories.EntityTypeRepository(databaseName);
         }
     }
 }
