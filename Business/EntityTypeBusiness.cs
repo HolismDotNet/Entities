@@ -1,6 +1,6 @@
 ﻿using Holism.Business;
 using Holism.DataAccess;
-using Holism.Framework;
+using Holism.Infra;
 using Holism.Entity.DataAccess;
 using Holism.Entity.Models;
 using System;

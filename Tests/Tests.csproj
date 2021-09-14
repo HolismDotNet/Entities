@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="/HolismDotNet/Framework/DotNet.targets" />
+  <Import Project="/HolismDotNet/Infra/DotNet.targets" />
 
   <PropertyGroup>
     <AssemblyName>Holism.Entity.Tests</AssemblyName>
