@@ -10,54 +10,54 @@ using Holism.Infra;
 
 namespace Holism.Entities.Business
 {
-    public class EntityBusiness : Business<Entity, Entity>
+    public class EntityTypeBusiness : Business<EntityType, EntityType>
     {
-        protected override Repository<Entity> WriteRepository =>
-            Repository.Entity;
+        protected override Repository<EntityType> WriteRepository =>
+            Repository.EntityType;
 
-        protected override ReadRepository<Entity> ReadRepository =>
-            Repository.Entity;
+        protected override ReadRepository<EntityType> ReadRepository =>
+            Repository.EntityType;
 
-        private static Dictionary<string, Guid> entityNames;
+        private static Dictionary<string, Guid> entityTypeNames;
 
-        private static Dictionary<Guid, string> entityGuids;
+        private static Dictionary<Guid, string> entityTypeGuids;
 
-        private static Dictionary<string, Guid> EntityNames
+        private static Dictionary<string, Guid> EntityTypeNames
         {
             get
             {
-                if (entityNames == null)
+                if (entityTypeNames == null)
                 {
-                    entityNames =
-                        new EntityBusiness()
+                    entityTypeNames =
+                        new EntityTypeBusiness()
                             .GetAll()
                             .ToDictionary(i => i.Name.ToLower(), i => i.Guid);
                 }
-                return entityNames;
+                return entityTypeNames;
             }
         }
 
-        private static Dictionary<Guid, string> EntityGuids
+        private static Dictionary<Guid, string> EntityTypeGuids
         {
             get
             {
-                if (entityGuids == null)
+                if (entityTypeGuids == null)
                 {
-                    entityGuids =
-                        new EntityBusiness()
+                    entityTypeGuids =
+                        new EntityTypeBusiness()
                             .GetAll()
                             .ToDictionary(i => i.Guid, i => i.Name.ToLower());
                 }
-                return entityGuids;
+                return entityTypeGuids;
             }
         }
 
         public Guid GetGuid(string name)
         {
             name = name.ToLower();
-            if (EntityNames.ContainsKey(name))
+            if (EntityTypeNames.ContainsKey(name))
             {
-                return EntityNames[name];
+                return EntityTypeNames[name];
             }
             throw new ServerException(@$"Entities {
                     name} is not specified in the database.");
@@ -65,9 +65,9 @@ namespace Holism.Entities.Business
 
         public string GetName(Guid guid)
         {
-            if (EntityGuids.ContainsKey(guid))
+            if (EntityTypeGuids.ContainsKey(guid))
             {
-                return EntityGuids[guid];
+                return EntityTypeGuids[guid];
             }
             throw new ServerException(@$"No Entities is defined to have the guid {
                     guid}");

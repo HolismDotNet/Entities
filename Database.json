@@ -2,7 +2,7 @@
     "name": "Entities",
     "tables": [
         {
-            "name": "Entities",
+            "name": "EntityTypes",
             "hasGuid": true,
             "columns": [
                 {

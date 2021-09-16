@@ -5,11 +5,11 @@ namespace Holism.Entities.DataAccess
 {
     public class Repository
     {
-        public static Repository<Entity> Entity
+        public static Repository<EntityType> EntityType
         {
             get
             {
-                return new Holism.DataAccess.Repository<Entity
+                return new Holism.DataAccess.Repository<EntityType
                 >(new EntitiesContext());
             }
         }

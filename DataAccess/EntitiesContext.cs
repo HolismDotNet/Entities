@@ -9,7 +9,7 @@ namespace Holism.Entities.DataAccess
     {
         public override string ConnectionStringName => "Entities";
 
-        public DbSet<Entity> Entities { get; set; }
+        public DbSet<EntityType> EntityTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

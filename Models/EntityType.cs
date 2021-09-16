@@ -2,9 +2,9 @@ using System;
 
 namespace Holism.Entities.Models
 {
-    public class Entity : Holism.Models.IGuidEntity
+    public class EntityType : Holism.Models.IGuidEntity
     {
-        public Entity()
+        public EntityType()
         {
             RelatedItems = new System.Dynamic.ExpandoObject();
         }
