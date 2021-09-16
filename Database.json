@@ -1,8 +1,15 @@
 {
-    "name": "Entity",
+    "name": "Entities",
     "tables": [
         {
-            "name": "Entities"
+            "name": "Entities",
+            "hasGuid": true,
+            "columns": [
+                {
+                    "name": "Name",
+                    "isUnique": true
+                }
+            ]
         }
     ]
 }

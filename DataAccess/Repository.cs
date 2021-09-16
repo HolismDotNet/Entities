@@ -1,15 +1,16 @@
-using Holism.Entity.Models;
+using Holism.Entities.Models;
 using Holism.DataAccess;
 
-namespace Holism.Entity.DataAccess
+namespace Holism.Entities.DataAccess
 {
     public class Repository
     {
-        public static Repository<EntityType> EntityType
+        public static Repository<Entity> Entity
         {
             get
             {
-                return new Holism.DataAccess.Repository<EntityType>(new EntityContext());
+                return new Holism.DataAccess.Repository<Entity
+                >(new EntitiesContext());
             }
         }
     }

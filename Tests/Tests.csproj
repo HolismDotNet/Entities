@@ -3,8 +3,8 @@
   <Import Project="/HolismDotNet/Infra/DotNet.targets" />
 
   <PropertyGroup>
-    <AssemblyName>Holism.Entity.Tests</AssemblyName>
-    <RootNamespace>Holism.Entity.Tests</RootNamespace>
+    <AssemblyName>Holism.Entities.Tests</AssemblyName>
+    <RootNamespace>Holism.Entities.Tests</RootNamespace>
   </PropertyGroup>
 
   <Import Project="/HolismDotNet/Quality/DatabaseTest.targets" />
