@@ -13,6 +13,7 @@ namespace Holism.Entities.DataAccess
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            
             base.OnModelCreating(builder);
         }
     }
