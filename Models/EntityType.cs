@@ -1,20 +1,17 @@
-using System;
+namespace Holism.Entities.Models;
 
-namespace Holism.Entities.Models
+public class EntityType : IGuidEntity
 {
-    public class EntityType : Holism.Models.IGuidEntity
+    public EntityType()
     {
-        public EntityType()
-        {
-            RelatedItems = new System.Dynamic.ExpandoObject();
-        }
-
-        public long Id { get; set; }
-
-        public Guid Guid { get; set; }
-
-        public string Name { get; set; }
-
-        public dynamic RelatedItems { get; set; }
+        RelatedItems = new ExpandoObject();
     }
+
+    public long Id { get; set; }
+
+    public Guid Guid { get; set; }
+
+    public string Name { get; set; }
+
+    public dynamic RelatedItems { get; set; }
 }
