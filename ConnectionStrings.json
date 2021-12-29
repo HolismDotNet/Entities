@@ -1,3 +1,3 @@
 {
-  "Entities": "data source=database,1433; initial catalog=Entities; user id=SA; password=lksU2o412f7tBj58t07B;application name=Entities;"
+  "Entities": "server=database; user id=root; password=IC1joYMLZTT0fQMJ5qcz;"
 }
