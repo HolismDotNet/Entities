@@ -1,2 +1,0 @@
-﻿IX_Entities_Unique_Guid
-IX_Entities_Unique_Name
