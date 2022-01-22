@@ -1,4 +1,4 @@
-namespace Holism.Entities.Models;
+namespace Entities;
 
 public class EntityType : IGuidEntity
 {

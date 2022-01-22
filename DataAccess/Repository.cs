@@ -1,12 +1,12 @@
-namespace Holism.Entities.DataAccess;
+namespace Entities;
 
 public class Repository
 {
-    public static Repository<EntityType> EntityType
+    public static Repository<Entities.EntityType> EntityType
     {
         get
         {
-            return new Repository<EntityType>(new EntitiesContext());
+            return new Repository<Entities.EntityType>(new EntitiesContext());
         }
     }
 }

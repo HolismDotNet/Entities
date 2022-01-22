@@ -1,4 +1,4 @@
-namespace Holism.Entities.DataAccess;
+namespace Entities;
 
 public class EntitiesContext : DatabaseContext
 {
