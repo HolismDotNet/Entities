@@ -4,7 +4,7 @@ public class EntitiesContext : DatabaseContext
 {
     public override string ConnectionStringName => "Entities";
 
-    public DbSet<EntityType> EntityTypes { get; set; }
+    public DbSet<Entities.EntityType> EntityTypes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
