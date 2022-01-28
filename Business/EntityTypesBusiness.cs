@@ -2,9 +2,9 @@
 
 public class EntityTypeBusiness : Business<EntityType, EntityType>
 {
-    protected override Repository<EntityType> WriteRepository => RepositoryEntityType;
+    protected override Repository<EntityType> WriteRepository => Repository.EntityType;
 
-    protected override ReadRepository<EntityType> ReadRepository => RepositoryEntityType;
+    protected override ReadRepository<EntityType> ReadRepository => Repository.EntityType;
 
     private static Dictionary<string, Guid> entityTypeNames;
 
