@@ -1,6 +1,6 @@
 namespace Entities;
 
-public class EntityType : IGuidEntity
+public class EntityType : IEntity, IGuid
 {
     public EntityType()
     {
