@@ -2,6 +2,8 @@
 
 public class EntityTypeBusiness : Business<EntityType, EntityType>
 {
+    public static bool AutomaticCreation = false;
+
     protected override Repository<EntityType> WriteRepository => Repository.EntityType;
 
     protected override ReadRepository<EntityType> ReadRepository => Repository.EntityType;
@@ -40,12 +42,31 @@ public class EntityTypeBusiness : Business<EntityType, EntityType>
         }
     }
 
+    private void ResetCache()
+    {
+        entityTypeNames = null;
+        entityTypeGuids = null;
+    }
+
     public Guid GetGuid(string name)
     {
         name = name.ToLower();
         if (EntityTypeNames.ContainsKey(name))
         {
             return EntityTypeNames[name];
+        }
+        if (AutomaticCreation)
+        {
+            var entityType = ReadRepository.Get(i => i.Name.ToLower() == name);
+            if (entityType != null)
+            {
+                ResetCache();
+                return GetGuid(name);
+            }
+            entityType = new EntityType();
+            entityType.Name = name;
+            Create(entityType);
+            return GetGuid(name);
         }
         throw new ServerException(@$"Entities {
                 name} is not specified in the database.");
