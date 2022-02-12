@@ -4,9 +4,9 @@ public class EntityTypeBusiness : Business<EntityType, EntityType>
 {
     public static bool AutomaticCreation = false;
 
-    protected override Repository<EntityType> WriteRepository => Repository.EntityType;
+    protected override Write<EntityType> Write => Repository.EntityType;
 
-    protected override ReadRepository<EntityType> ReadRepository => Repository.EntityType;
+    protected override Read<EntityType> Read => Repository.EntityType;
 
     private static Dictionary<string, Guid> entityTypeNames;
 
@@ -57,7 +57,7 @@ public class EntityTypeBusiness : Business<EntityType, EntityType>
         }
         if (AutomaticCreation)
         {
-            var entityType = ReadRepository.Get(i => i.Name.ToLower() == name);
+            var entityType = Read.Get(i => i.Name.ToLower() == name);
             if (entityType != null)
             {
                 ResetCache();
