@@ -55,7 +55,7 @@ public class EntityTypeBusiness : Business<EntityType, EntityType>
         {
             return EntityTypeNames[name];
         }
-        if (AutomaticCreation)
+        if (InfraConfig.IsDeveloping || AutomaticCreation)
         {
             var entityType = Read.Get(i => i.Name.ToLower() == name);
             if (entityType != null)
