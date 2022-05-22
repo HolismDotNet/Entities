@@ -2,6 +2,8 @@
 
 public class EntityTypeBusiness : Business<EntityType, EntityType>
 {
+    static Random random = new Random();
+
     public static bool AutomaticCreation = false;
 
     protected override Write<EntityType> Write => Repository.EntityType;
@@ -48,6 +50,12 @@ public class EntityTypeBusiness : Business<EntityType, EntityType>
         entityTypeGuids = null;
     }
 
+    protected override void ModifyItemBeforeReturning(EntityType item)
+    {
+        item.RelatedItems.DefaultImageUrl = Storage.GetImageUrl(item.Name, Guid.Empty);
+        base.ModifyItemBeforeReturning(item);
+    }
+
     public Guid GetGuid(string name)
     {
         name = name.ToLower();
@@ -80,5 +88,22 @@ public class EntityTypeBusiness : Business<EntityType, EntityType>
         }
         throw new ServerException(@$"No Entities is defined to have the guid {
                 guid}");
+    }
+
+    public void SetRandomDefaultImage(long id)
+    {
+        var entityType = Get(id);
+        var width = random.Next(100,900);
+        var height = random.Next(100, 900);
+        var imageBytes = new System.Net.Http.HttpClient().GetAsync($"https://picsum.photos/{width}/{height}").Result.Content.ReadAsByteArrayAsync().Result;
+        Storage.UploadImage(imageBytes, Guid.Empty, entityType.Name);
+    }
+
+    public void SetRandomDefaultImages(List<long> ids)
+    {
+        foreach (var id in ids)
+        {
+            SetRandomDefaultImage(id);
+        }
     }
 }
