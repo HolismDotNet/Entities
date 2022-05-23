@@ -47,4 +47,18 @@ public class EntityTypeController : ReadController<EntityType>
         new EntityTypeBusiness().SetRandomDefaultImages(ids);
         return OkJson();
     }
+
+    [FileUploadChecker]
+    [HttpPost]
+    public EntityType SetImage(IFormFile file)
+    {
+        var entityTypeId = Request.Query["entityTypeId"];
+        if (entityTypeId.Count == 0)
+        {
+            throw new ClientException("Please provide entityTypeId");
+        }
+        var bytes = file.OpenReadStream().GetBytes();
+        var entityType = new EntityTypeBusiness().ChangeImage(entityTypeId[0].ToLong(), bytes);
+        return entityType;
+    }
 }

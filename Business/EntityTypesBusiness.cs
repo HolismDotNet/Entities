@@ -116,4 +116,12 @@ public class EntityTypeBusiness : Business<EntityType, EntityType>
         ";
         Write.Run(query);
     }
+
+    public EntityType ChangeImage(long entityTypeId, byte[] bytes)
+    {
+        var entityType = Write.Get(entityTypeId);
+        Storage.UploadImage(bytes, Guid.Empty, entityType.Name);
+        Write.Update(entityType);
+        return Get(entityTypeId);
+    }
 }
