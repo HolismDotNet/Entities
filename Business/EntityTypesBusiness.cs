@@ -106,4 +106,14 @@ public class EntityTypeBusiness : Business<EntityType, EntityType>
             SetRandomDefaultImage(id);
         }
     }
+
+    public void CreateAllEntityTypes(List<string> entityTypes)
+    {
+        var query = @$"
+            insert ignore into Entities.EntityTypes(Name)
+            values
+            {entityTypes.Select(i => $"('{i.ToLower()}'),").ToList().Merge().Trim(',')}
+        ";
+        Write.Run(query);
+    }
 }
