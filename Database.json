@@ -7,7 +7,7 @@
             "columns": [
                 {
                     "name": "Name",
-                    "isUnique": true
+                    "unique": true
                 }
             ]
         }
